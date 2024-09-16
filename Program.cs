@@ -93,15 +93,68 @@ Console.WriteLine($"névsorban az első kisállat: {lnMinBy}");
 //foreach (var item in petarray) Console.WriteLine($"\t - {item.Name}");
 
 //first
+var lnFirst = pets.First(p => p.Species == "dog");
+Console.WriteLine($"első kutyus a listában: {lnFirst}");
+//ha VAN egyezés (bármennyi), akkor rendre az ELSŐ példánnyal tér vissza
+//ha NINCS egyezés 'Sequence contains no matching element' exceptiont dob
+
 //last
+var lnLast = pets.Last(p => p.Species == "dog");
+Console.WriteLine($"utcsó kutyus a listában: {lnLast}");
+//ha VAN egyezés (bármennyi), akkor rendre az UTOLSÓ példánnyal tér vissza
+//ha NINCS egyezés 'Sequence contains no matching element' exceptiont dob
+
 //single
+var lnSingle = pets.Single(p => p.Species == "hamster");
+Console.WriteLine($"az egyetlen pucpuc a listában: {lnSingle}");
+//ha EGYETLEN egyezés van, akkor visszatér az egyező példánnyal
+//ha TÖBB egyezés lenne, akkor 'Sequence contains more than one matching element' exceptiont dob
+//ha NINCS egyezés 'Sequence contains no matching element' exceptiont dob
 
 //firstordefault
+var lnFirstOD = pets.FirstOrDefault(p => p.Species == "dog");
+Console.WriteLine($"első kutyus a listában: {lnFirstOD}");
+//ha VAN egyezés (bármennyi), akkor rendre az ELSŐ példánnyal tér vissza
+//ha NINCS egyezés akkor típustól függően 'default' értéket ad vissza, ami:
+//  érték típus esetén "általában" zéró (struct)
+//  referecia típus esetén null (class)
+
+var lnFodUnicorn = pets.FirstOrDefault(p => p.Species == "unicorn");
+Console.WriteLine($"unikornisos FOD lekérdezés visszaadott értéke null-e: {lnFodUnicorn is null}");
+
 //lastordefault
+var lnLastOD = pets.LastOrDefault(p => p.Species == "dog");
+Console.WriteLine($"utcsó kutyus a listában: {lnLastOD}");
+//ha VAN egyezés (bármennyi), akkor rendre az UTOLSÓ példánnyal tér vissza
+//ha NINCS egyezés akkor típustól függően 'default' értéket ad vissza, ami:
+//  érték típus esetén "általában" zéró (struct)
+//  referecia típus esetén null (class)
+
+int[] numbers = [11, 2, 26, 33, 2, 40, 17, 1231];
+var lnLodNumRef01 = numbers.LastOrDefault(n => n % 2 == 0);
+Console.WriteLine($"rendre utolsó páros szám a vektorban: {lnLodNumRef01}");
+
+int? lnLodNumRef02 = numbers.LastOrDefault(n => n % 123 == 0);
+Console.WriteLine($"rendre utolsó 123al osztható szám null-e: {lnLodNumRef02 is null}");
+
 //singleordefault
+var lnSingleOD = pets.SingleOrDefault(p => p.Species == "dog" && !p.Sex);
+Console.WriteLine($"az egyetlen lány kutyus a listában: {lnSingleOD}");
+//ha EGYETLEN egyezés van, akkor visszatér az egyező példánnyal
+//ha TÖBB egyezés lenne, akkor 'Sequence contains more than one matching element' exceptiont dob
+//ha NINCS egyezés akkor típustól függően 'default' értéket ad vissza, ami:
+//  érték típus esetén "általában" zéró (struct)
+//  referecia típus esetén null (class)
 
 //collections.generic
 //find == [first or default],
 //findall == [where]
+
 //indexof <- linker
 //(ha nem találja a megadott objectumot a kollekcióban, akkor -1el tér vissza)
+
+int indexOfFirstUnicorn = pets.IndexOf(lnFodUnicorn);
+Console.WriteLine($"első unikornis indexe: {indexOfFirstUnicorn}");
+
+int indexOfSingleHamster = pets.IndexOf(lnSingle);
+Console.WriteLine($"az egyetlen hörcvsög indexe: {indexOfSingleHamster}");

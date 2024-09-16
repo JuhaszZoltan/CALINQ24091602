@@ -54,3 +54,25 @@ List<Pet> pets = [
 ];
 #endregion
 
+/* "ismert" nevezetes algoritmusok:
+ * (másolás)
+ * sorozatszámítás -> összegzés ==> átlagszámítás
+ * megszámlálás
+ * szélsőérték meghatározás (min, max)
+ * 'keresés'
+ * eldöntés
+ * kiválasztás
+ * --------------------
+ * 'rendezés'
+ * kiválogatás
+ * szétválogatás
+ * halmaztételek (metszet, unió, különbség)
+*/
+
+Console.WriteLine($"állatkák száma: {pets.Count}");
+
+var lnSum = pets.Sum(p => p.Age);
+Console.WriteLine($"eddig boldogítottak minket kisállataink összesen: {lnSum} év");
+
+var lnAvg = pets.Average(p => p.Age);
+Console.WriteLine($"állatok átlagéletkora: {lnAvg:0.00} év");

@@ -76,3 +76,32 @@ Console.WriteLine($"eddig boldogítottak minket kisállataink összesen: {lnSum}
 
 var lnAvg = pets.Average(p => p.Age);
 Console.WriteLine($"állatok átlagéletkora: {lnAvg:0.00} év");
+
+var lnCnt = pets.Count(p => p.Species == "cat" && p.Sex);
+Console.WriteLine($"kandúr cicák száma: {lnCnt} db");
+
+var lnMax = pets.Max(p => p.BirthDate);
+Console.WriteLine($"legfiatalabb kiskedvenc szülinapja: {lnMax:MMMM dd.}");
+
+var lnMinBy = pets.MinBy(p => p.Name);
+Console.WriteLine($"névsorban az első kisállat: {lnMinBy}");
+
+//a copyto nem linq
+//de van rá fg. a collections.generic-ben
+//var petarray = new Pet[pets.Count];
+//pets.CopyTo(petarray);
+//foreach (var item in petarray) Console.WriteLine($"\t - {item.Name}");
+
+//first
+//last
+//single
+
+//firstordefault
+//lastordefault
+//singleordefault
+
+//collections.generic
+//find == [first or default],
+//findall == [where]
+//indexof <- linker
+//(ha nem találja a megadott objectumot a kollekcióban, akkor -1el tér vissza)

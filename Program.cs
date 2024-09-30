@@ -60,8 +60,8 @@ List<Pet> pets = [
  * megszámlálás
  * szélsőérték meghatározás (min, max)
  * 'keresés'
- * eldöntés
  * kiválasztás
+ * eldöntés
  * --------------------
  * 'rendezés'
  * kiválogatás
@@ -157,4 +157,66 @@ int indexOfFirstUnicorn = pets.IndexOf(lnFodUnicorn);
 Console.WriteLine($"első unikornis indexe: {indexOfFirstUnicorn}");
 
 int indexOfSingleHamster = pets.IndexOf(lnSingle);
-Console.WriteLine($"az egyetlen hörcvsög indexe: {indexOfSingleHamster}");
+Console.WriteLine($"az egyetlen hörcsög indexe: {indexOfSingleHamster}");
+
+var lnIsThereAnyKitten = pets.Any(p => p.Species == "cat");
+Console.WriteLine($"{(lnIsThereAnyKitten ? "van" : "nincs")} cica az állatkák közt");
+
+//.Exist() <- ue.
+//.Contains() <- ennek nem prediction kell, hanem konkrét referencia
+
+//.Sort() <- ez HELYBEN rendez(ne), az eredeti kollekció elemeinek sorrendjét változtatja meg
+// viszont ami LINQ (orderby, orderbydescending, ..thenby) azok LÉTREHOZNAK egy IOrderedEnumerable kollekciót (tehát az eredeti kollekció nem változik, hanem egy rendezett projekciót készít belőle)
+
+//olyan property alapján rendezhető egy kollekció,
+//amin értelmezett [<, >, <=, >=, ==]
+
+var lnOBNames = pets.OrderBy(p => p.Name);
+Console.WriteLine("állatkák névsorrendben:");
+foreach (var pet in lnOBNames)
+{
+    Console.WriteLine($"\t[{pets.IndexOf(pet)}.] {pet}");
+}
+
+var lnOBDAges = pets
+    .OrderByDescending(p => p.Age)
+    .ThenBy(p => p.Name);
+Console.WriteLine("állatkák életkor szerint csökkenőben " +
+    "(azn belül pedig abc rendben):");
+foreach (var pet in lnOBDAges)
+{
+    Console.WriteLine($"\t[{pets.IndexOf(pet)}.] {pet}");
+}
+
+var lnDogs = pets.Where(p => p.Species == "dog");
+Console.WriteLine("kutyák");
+foreach (var pet in lnDogs)
+{
+    Console.WriteLine($"\t{pet}");
+}
+
+var lnGBySpecies = pets.GroupBy(p => p.Species);
+
+Console.WriteLine("fajok szerint csopizva");
+foreach (var group in lnGBySpecies.OrderBy(g => g.Key))
+{
+    Console.WriteLine($"\t{group.Key} ({group.Count()} db)");
+    foreach (var pet in group.OrderBy(p => p.Age))
+    {
+        Console.WriteLine($"\t\t{pet}");
+    }
+}
+
+//--------------------
+
+var lnSpecies = pets
+    .Select(p => p.Species) // <- propoerty projekció
+    .Distinct() // <- ismétlődést szűr
+    .Order(); // <- rendez ELEMI kollekciókat (nincs értelme a "by"-bak)
+Console.WriteLine("állatfajták:");
+foreach (var spe in lnSpecies)
+{
+    Console.WriteLine($"\t{spe}");
+}
+
+
